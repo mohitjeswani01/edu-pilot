@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# drizzle stuff
+
+# Drizzle ORM generated SQL (if needed)
+drizzle/migrations/*.sql
+
+# Clerk dev instance config (if exists)
+.clerk/

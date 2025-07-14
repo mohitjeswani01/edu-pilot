@@ -1,8 +1,8 @@
 import * as dotenv from 'dotenv';
-dotenv.config({ path: '.env.local' }); // ✅ Load from .env.local (optional)
+dotenv.config({ path: '.env.local' });
 
 export default {
-    schema: './config/schema.js', // ✅ Adjust if needed
+    schema: './config/schema.js',
     out: './drizzle/migrations',
     dialect: 'postgresql',
     dbCredentials: {

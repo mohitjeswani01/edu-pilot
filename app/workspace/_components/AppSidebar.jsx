@@ -12,9 +12,10 @@ import {
     SidebarMenuItem,
     SidebarMenuButton
 } from "@/components/ui/sidebar";
-import { Book, Compass, PencilRulerIcon, Wrench, WalletCards, UserCircle2Icon, LayoutDashboard } from 'lucide-react';
+import { Book, Compass, PencilRulerIcon, Wrench, WalletCards, UserCircle2Icon, LayoutDashboard, Sparkle } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import AddNewCourseDialog from './AddNewCourseDialog';
 
 
 const SideBarOptions = [
@@ -35,7 +36,7 @@ const SideBarOptions = [
     },
     {
         title: 'AI Tools',
-        icon: Wrench,
+        icon: Sparkle,
         path: '/workspace/ai-tools'
     },
     {
@@ -55,12 +56,14 @@ function AppSidebar() {
     const path = usePathname()
     return (
         <Sidebar>
-            <SidebarHeader className={'p-3'}>
-                <img src="/logo.svg" alt="logo" width="100" height="80" />
+            <SidebarHeader className={'p-2'}>
+                <img src="/logo.jpg" alt="logo" width="140" height="80" />
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup />
-                <Button>Create Course</Button>
+                <AddNewCourseDialog>
+                    <Button>Create Course</Button>
+                </AddNewCourseDialog>
                 <SidebarGroup />
                 <SidebarGroup>
                     <SidebarGroupContent>

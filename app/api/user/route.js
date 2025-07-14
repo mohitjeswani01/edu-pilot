@@ -13,13 +13,12 @@ export async function POST(req) {
 
         if (users.length === 0) {
             const result = await db.insert(usersTable).values({
-                name: name,
-                email: email,
+                name,
+                email,
                 subscriptionId: "default-subscription"
             }).returning();
-
             console.log("Inserted user:", result);
-            return NextResponse.json(result);
+            return NextResponse.json(result[0]);  // <<- IMPORTANT
         }
 
         console.log("User already exists:", users[0]);

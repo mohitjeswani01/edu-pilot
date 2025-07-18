@@ -4,11 +4,13 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import axios from 'axios';
 import { Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 function CourseInfo({ course }) {
     const courseLayout = course?.courseJson?.course;
     const [loading, setLoading] = useState(false);
-
+    const router = useRouter()
     const GenerateCourseContent = async () => {
         setLoading(true);
         try {
@@ -18,8 +20,11 @@ function CourseInfo({ course }) {
                 courseId: course?.cid
             });
             console.log(result.data);
+            router.replace('/workspace')
+            toast.success('course generated successfully')
         } catch (error) {
             console.log(error);
+            toast.error("server side error, please Try again later!")
         } finally {
             setLoading(false);
         }

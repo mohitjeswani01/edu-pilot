@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
-import { ai } from '@/lib/ai';
+import { getGeminiModel } from '@/lib/ai';
+import axios from 'axios';
+
 
 const PROMPT = `I have multiple chapters, and each chapter contains several topics. Based on the given chapter name and topic, I want you to generate educational content in HTML format for each topic. Then, structure the response as a JSON object, where each topic is a key, and the corresponding value is the generated HTML content.
 Schema: {
@@ -26,7 +28,8 @@ export async function POST(req) {
             responseMimeType: 'text/plain',
         };
 
-        const geminiModel = ai.getGenerativeModel({ model: 'gemini-1.5-flash' });
+        const geminiModel = await getGeminiModel("gemini-1.5-flash");
+
 
         const promises = course.chapters.map(async (chapter) => {
             try {
@@ -53,10 +56,17 @@ export async function POST(req) {
                     .trim();
 
                 const parsed = JSON.parse(rawJson);
-
-                return parsed;
+                const youtubeData = await GetYoutubeVideo(chapter?.chapterName);
+                console.log({
+                    youtubeVideo: youtubeData,
+                    courseData: parsed
+                })
+                return {
+                    youtubeVideo: youtubeData,
+                    courseData: parsed
+                }
             } catch (error) {
-                console.error(`❌ Error in chapter "${chapter.chapterName}":`, error);
+                console.error(`Error in chapter "${chapter.chapterName}":`, error);
                 return {
                     chapterName: chapter.chapterName,
                     error: error.message,
@@ -69,11 +79,34 @@ export async function POST(req) {
         return NextResponse.json({
             courseName: courseTitle,
             courseId,
-            CourseContent,
+            CourseContent: CourseContent,
         });
 
     } catch (error) {
-        console.error('❌ API Error:', error);
+        console.error('API Error:', error);
         return NextResponse.json({ error: 'Internal server error', details: error.message }, { status: 500 });
     }
+}
+
+const YOUTUBE_BASE_URL = 'https://www.googleapis.com/youtube/v3/search';
+const GetYoutubeVideo = async (topic) => {
+    const params = {
+        part: 'snippet',
+        q: topic,
+        maxResult: 4,
+        type: 'video',
+        key: process.env.YOUTUBE_API_KEY,
+    }
+    const resp = await axios.get(YOUTUBE_BASE_URL, { params });
+    const youtubeVideoListResp = resp.data.items;
+    const youtubeVideoList = [];
+    youtubeVideoListResp.forEach(item => {
+        const data = {
+            videoId: item.id?.videoId,
+            title: item?.snippet?.title
+        }
+        youtubeVideoList.push(data);
+    })
+    console.log("youtubeVideoList", youtubeVideoList)
+    return youtubeVideoList;
 }

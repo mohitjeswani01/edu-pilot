@@ -9,7 +9,7 @@ export const usersTable = pgTable("users", {
 
 export const coursesTable = pgTable("courses", {
     id: integer("id").primaryKey().notNull().generatedAlwaysAsIdentity(),
-    cid: varchar("cid", { length: 255 }).notNull(),
+    cid: varchar("cid", { length: 255 }).notNull().unique(),
     name: varchar("name", { length: 255 }),
     description: varchar("description", { length: 255 }),
     noOfChapters: integer("noOfChapters").notNull(),
@@ -20,4 +20,14 @@ export const coursesTable = pgTable("courses", {
     bannerImageUrl: varchar("bannerImageUrl", { length: 255 }).default(''),
     courseContent: json().default({}),
     userEmail: varchar("userEmail", { length: 255 }).references(() => usersTable.email).notNull()
+});
+
+export const enrollCourseTable = pgTable('enrollCourse', {
+    id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+    cid: varchar('cid', { length: 255 }).notNull().references(() => coursesTable.cid),
+    userEmail: varchar('userEmail', { length: 255 }).notNull().references(() => usersTable.email),
+    completedChapters: json('completedChapters')
+    // Optionally:
+    // enrolledAt: timestamp('enrolledAt').defaultNow(),
+    // updatedAt: timestamp('updatedAt').defaultNow().onUpdateNow()
 });

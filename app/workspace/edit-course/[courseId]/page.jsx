@@ -5,6 +5,7 @@ import React, { use } from 'react'
 import { useState, useEffect } from 'react';
 import CourseInfo from '../_components/CourseInfo';
 import ChapterTopicList from '../_components/ChapterTopicList';
+import CourseCard from '../../_components/CourseCard';
 
 function EditCourse() {
     const { courseId } = useParams();

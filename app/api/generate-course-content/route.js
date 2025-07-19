@@ -33,7 +33,7 @@ export async function POST(req) {
         }
 
         const config = { responseMimeType: 'text/plain' };
-        const geminiModel = await getGeminiModel('gemini-1.5-flash');
+        const geminiModel = await getGeminiModel('gemini-1.5-pro');
 
         const promises = course.chapters.map(async (chapter) => {
             try {

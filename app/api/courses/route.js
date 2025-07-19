@@ -1,16 +1,37 @@
 import { db } from "@/config/db";
 import { NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
-import { coursesTable, usersTable } from "@/config/schema";
+import { desc } from "drizzle-orm";
+import { coursesTable } from "@/config/schema";
+import { currentUser } from "@clerk/nextjs/server";
 
 export async function GET(req) {
     const { searchParams } = new URL(req.url);
-    const courseId = searchParams.get('courseId');
+    const courseId = searchParams.get("courseId");
+    const user = await currentUser();
 
-    const result = await db.select().from(coursesTable)
-        .where(eq(coursesTable.cid, courseId));
+    console.log("User:", user);
 
-    console.log(result);
+    if (courseId) {
+        const result = await db
+            .select()
+            .from(coursesTable)
+            .where(eq(coursesTable.cid, courseId));
 
-    return NextResponse.json(result[0]);
+        return NextResponse.json(result[0] || {});
+    } else {
+        const email = user?.primaryEmailAddress?.emailAddress;
+
+        if (!email) {
+            return NextResponse.json({ error: "User email not found" }, { status: 400 });
+        }
+
+        const result = await db
+            .select()
+            .from(coursesTable)
+            .where(eq(coursesTable.userEmail, email.toLowerCase()))
+            .orderBy(desc(coursesTable.id))
+
+        return NextResponse.json(result);
+    }
 }

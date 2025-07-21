@@ -1,4 +1,4 @@
-import { Book, Clock, TrendingUp } from 'lucide-react';
+import { Book, Clock, PlayCircle, TrendingUp } from 'lucide-react';
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -6,8 +6,9 @@ import axios from 'axios';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import Link from 'next/link';
 
-function CourseInfo({ course }) {
+function CourseInfo({ course, viewCourse }) {
     const courseLayout = course?.courseJson?.course;
     const [loading, setLoading] = useState(false);
     const router = useRouter()
@@ -58,16 +59,18 @@ function CourseInfo({ course }) {
                         </section>
                     </div>
                 </div>
-                <Button onClick={GenerateCourseContent} disabled={loading}>
-                    {loading ? (
-                        <span className="flex items-center gap-2">
-                            <Loader2 className="animate-spin h-5 w-5" />
-                            Generating Content
-                        </span>
-                    ) : (
-                        'Generate Content'
-                    )}
-                </Button>
+                {!viewCourse ?
+                    <Button onClick={GenerateCourseContent} disabled={loading}>
+                        {loading ? (
+                            <span className="flex items-center gap-2">
+                                <Loader2 className="animate-spin h-5 w-5" />
+                                Generating Content
+                            </span>
+                        ) : (
+                            'Generate Content'
+                        )}
+                    </Button>
+                    : <Link href={'/course/' + course?.cid}> <Button> <PlayCircle /> Continue Learning </Button></Link>}
             </div>
             <Image
                 src={course?.bannerImageUrl && course.bannerImageUrl.trim() !== ""
@@ -78,7 +81,7 @@ function CourseInfo({ course }) {
                 height={400}
                 className="w-full h-[280px] mt-5 md:mt-0 object-cover rounded-2xl aspect-auto"
             />
-        </div>
+        </div >
     );
 }
 

@@ -30,7 +30,7 @@ function CourseList() {
     return (
         <div className='p-5'>
             <div className='flex items-center justify-between'>
-                <h2 className='font-bold text-2xl'>Course List</h2>
+                <h2 className='font-bold text-xl'>Course List</h2>
                 <AddNewCourseDialog>
                     <Button>+ New Course</Button>
                 </AddNewCourseDialog>

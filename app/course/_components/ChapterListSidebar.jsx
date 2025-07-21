@@ -5,15 +5,16 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion";
-
+import { useContext } from 'react';
+import { SelectedChapterIndexContext } from '@/context/SelectedChapterIndexContext'; // adjust the path
 
 function ChapterListSidebar({ courseInfo }) {
 
     const course = courseInfo?.[0]?.courses;
     const enrollCourse = courseInfo?.[0]?.enrollCourse;
-
-    // This path remains the same for the chapter list.
     const courseContent = courseInfo?.[0]?.courses?.courseContent;
+    const { selectedChapterIndex, setSelectedChapterIndex } = useContext(SelectedChapterIndexContext)
+
 
     if (!Array.isArray(courseContent) || courseContent.length === 0) {
         return (
@@ -25,18 +26,18 @@ function ChapterListSidebar({ courseInfo }) {
     }
 
     return (
-        <div className='w-80 bg-secondary h-screen p-5'>
-            <h2 className='my-3 font-bold text-xl'> Chapters</h2>
+        <div className='w-96 bg-secondary h-screen p-5'>
+            <h2 className='my-3 font-bold text-xl'> Chapters ({courseContent?.length})</h2>
             <Accordion type="single" collapsible className="w-full">
                 {courseContent.map((chapter, index) => (
                     <AccordionItem
-                        value={chapter.cid || chapter.chapterName || `item-${index}`}
-                        key={chapter.cid || index}>
-                        <AccordionTrigger>{index + 1}. {chapter.chapterName}</AccordionTrigger>
+                        value={chapter?.courseData?.chapterName}
+                        key={index} onClick={() => setSelectedChapterIndex(index)}>
+                        <AccordionTrigger className={'text-lg font-medium'}>{index + 1}. {chapter?.courseData?.chapterName}</AccordionTrigger>
                         <AccordionContent asChild>
-                            <div>
+                            <div className=''>
                                 {chapter?.courseData?.topics.map((topic, index) => (
-                                    <h2 key={index}>{topic?.topic}</h2>
+                                    <h2 key={index} className='p-3 bg-white my-1 rounded-lg'>{topic?.topic}</h2>
                                 ))}
                             </div>
                         </AccordionContent>

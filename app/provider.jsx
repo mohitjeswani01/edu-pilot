@@ -3,11 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { useUser } from '@clerk/nextjs';
 import axios from 'axios';
 import { UserDetailContext } from '@/context/UserDetailContext';
+import { SelectedChapterIndexContext } from '@/context/SelectedChapterIndexContext';
 
 function Provider({ children }) {
 
     const { user } = useUser();
     const [userDetail, setUserDetail] = useState();
+    const [selectedChapterIndex, setSelectedChapterIndex] = useState(0);
 
     useEffect(() => {
         if (user) createNewUser();
@@ -30,7 +32,9 @@ function Provider({ children }) {
 
     return (
         <UserDetailContext.Provider value={{ userDetail, setUserDetail }}>
-            <div>{children}</div>
+            <SelectedChapterIndexContext.Provider value={{ selectedChapterIndex, setSelectedChapterIndex }}>
+                <div>{children}</div>
+            </SelectedChapterIndexContext.Provider>
         </UserDetailContext.Provider>
     )
 }

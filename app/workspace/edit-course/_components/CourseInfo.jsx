@@ -59,18 +59,16 @@ function CourseInfo({ course, viewCourse }) {
                         </section>
                     </div>
                 </div>
-                {!viewCourse ?
-                    <Button onClick={GenerateCourseContent} disabled={loading}>
-                        {loading ? (
-                            <span className="flex items-center gap-2">
-                                <Loader2 className="animate-spin h-5 w-5" />
-                                Generating Content
-                            </span>
-                        ) : (
-                            'Generate Content'
-                        )}
-                    </Button>
-                    : <Link href={'/course/' + course?.cid}> <Button> <PlayCircle /> Continue Learning </Button></Link>}
+                {!viewCourse ? <Button onClick={GenerateCourseContent} disabled={loading}>
+                    {loading ? (
+                        <span className="flex items-center gap-2">
+                            <Loader2 className="animate-spin h-5 w-5" />
+                            Generating Content
+                        </span>
+                    ) : (
+                        'Generate Content'
+                    )}
+                </Button> : <Link href={'/course/' + course?.cid}><Button><PlayCircle /> Continue Learning</Button></Link>}
             </div>
             <Image
                 src={course?.bannerImageUrl && course.bannerImageUrl.trim() !== ""
@@ -81,7 +79,7 @@ function CourseInfo({ course, viewCourse }) {
                 height={400}
                 className="w-full h-[280px] mt-5 md:mt-0 object-cover rounded-2xl aspect-auto"
             />
-        </div >
+        </div>
     );
 }
 

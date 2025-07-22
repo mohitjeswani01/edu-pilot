@@ -46,7 +46,12 @@ function ChapterListSidebar({ courseInfo, loading, isSidebarOpen, toggleSidebar 
     }
 
     return (
-        <div className={`bg-secondary h-screen border-r overflow-y-auto transition-all duration-300 ease-in-out ${isSidebarOpen ? 'w-96 p-4' : 'w-16 p-2'} flex flex-col`}>
+        <div className={`
+            bg-secondary h-screen border-r overflow-y-auto transition-all duration-300 ease-in-out flex flex-col
+            ${isSidebarOpen
+                ? 'w-64 sm:w-72 md:w-80 p-3 sm:p-4'
+                : 'w-14 sm:w-16 p-2'}
+        `}>
             <div className="sticky top-0 z-10 bg-secondary pb-2 flex items-center justify-between">
                 {isSidebarOpen && (
                     <h2 className='font-bold text-xl truncate'>Chapters ({courseContent.length})</h2>

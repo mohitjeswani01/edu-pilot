@@ -1,77 +1,137 @@
+'use client';
+
+import React, { useContext, useState } from 'react';
+import { Button } from '@/components/ui/button';
 import { SelectedChapterIndexContext } from '@/context/SelectedChapterIndexContext';
-import React, { useContext } from 'react';
+import { CheckCircle, X } from 'lucide-react';
+import { useParams } from 'next/navigation';
 import YouTube from 'react-youtube';
+import axios from 'axios';
+import { toast } from 'sonner';
 
-function ChapterContent({ courseInfo }) {
-    const course = courseInfo?.course;
-    const enrollCourse = courseInfo?.enrollCourse;
-    const courseContent = courseInfo?.[0]?.courses?.courseContent;
+function ChapterContent({ courseInfo, loading, refreshData }) {
+    const { courseId } = useParams();
     const { selectedChapterIndex } = useContext(SelectedChapterIndexContext);
-    const videoData = courseContent?.[selectedChapterIndex]?.youtubeVideo;
-    const topics = courseContent?.[selectedChapterIndex]?.courseData?.topics;
-    const activeChapter = courseContent?.[selectedChapterIndex];
+    const courseContent = courseInfo?.[0]?.courses?.courseContent || [];
+    const enrollCourse = courseInfo?.[0]?.enrollCourse;
+    const completedChapters = enrollCourse?.completedChapters || [];
 
-    // Safety check to handle initial render before data arrives or a chapter is selected.
-    if (!activeChapter) {
+    const activeChapter = courseContent[selectedChapterIndex];
+    const videoData = activeChapter?.youtubeVideo || [];
+    const topics = activeChapter?.courseData?.topics || [];
+
+    const [buttonLoading, setButtonLoading] = useState(false);
+
+    const markChapterCompleted = async () => {
+        try {
+            setButtonLoading(true);
+            const updated = [...completedChapters, selectedChapterIndex];
+            await axios.put('/api/enroll-course', {
+                courseId,
+                completedChapter: updated
+            });
+            toast.success('Chapter marked as completed!');
+            refreshData();
+        } catch (error) {
+            toast.error('Error marking completed');
+        } finally {
+            setButtonLoading(false);
+        }
+    };
+
+    const markChapterIncomplete = async () => {
+        try {
+            setButtonLoading(true);
+            const updated = completedChapters.filter(i => i !== selectedChapterIndex);
+            await axios.put('/api/enroll-course', {
+                courseId,
+                completedChapter: updated
+            });
+            toast.success('Chapter marked as incomplete!');
+            refreshData();
+        } catch (error) {
+            toast.error('Error marking incomplete');
+        } finally {
+            setButtonLoading(false);
+        }
+    };
+
+    if (loading || !activeChapter) {
         return (
-            // Added flex and center classes for better alignment of the placeholder text.
             <div className='p-4 sm:p-10 flex items-center justify-center h-full'>
-                <h2 className="text-gray-500 text-center text-lg">Please click a Chapter to see the Content</h2>
+                <div className="text-center">
+                    <h2 className="text-gray-500 text-lg">
+                        {loading ? 'Loading course...' : 'Please select a chapter to view its content.'}
+                    </h2>
+                </div>
             </div>
         );
     }
 
+    const isCompleted = completedChapters.includes(selectedChapterIndex);
+
     return (
-        // ✅ Overall padding adjusted for different screen sizes for better spacing.
-        <div className='p-4 sm:p-6 md:p-10 w-full'>
-            {/* ✅ Responsive typography for the main chapter title. */}
-            <h2 className='font-bold text-xl sm:text-2xl mb-4'>{selectedChapterIndex + 1}. {activeChapter?.courseData?.chapterName}</h2>
+        <div className='p-5 sm:p-8 md:p-10 max-w-screen-lg mx-auto'>
+            <div className='flex justify-between items-center flex-wrap gap-2 mb-6'>
+                <h2 className='font-bold text-xl sm:text-2xl'>
+                    {selectedChapterIndex + 1}. {activeChapter?.courseData?.chapterName}
+                </h2>
 
-            <h2 className='my-2 font-bold text-base sm:text-lg'>Related Videos🎬</h2>
-
-            {/* ✅ Grid layout now has more responsive breakpoints for better stacking. */}
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5 mb-8'>
-                {videoData?.map((video, index) => index < 2 && (
-                    <div key={index} className='my-4'>
-                        {/* ✅ --- THE MAGIC FOR RESPONSIVE VIDEOS ---
-                          1. Outer div: `relative pt-[56.25%]` creates a 16:9 aspect ratio box.
-                             (56.25% is 9 / 16).
-                          2. YouTube opts: We remove fixed height/width and tell it to be 100% of its container.
-                          3. YouTube className: We make the video iframe fill the aspect ratio box absolutely.
-                        */}
-                        <div className="relative pt-[56.25%] bg-black rounded-lg overflow-hidden shadow-xl">
-                            <YouTube
-                                videoId={video?.videoId}
-                                className='absolute top-0 left-0 w-full h-full'
-                                opts={{
-                                    height: '100%',
-                                    width: '100%',
-                                    playerVars: {
-                                        autoplay: 0,
-                                        modestbranding: 1,
-                                    },
-                                }}
-                            />
-                        </div>
-                    </div>
-                ))}
+                {!isCompleted ? (
+                    <Button
+                        onClick={markChapterCompleted}
+                        disabled={buttonLoading}
+                        className='flex gap-2 items-center'
+                    >
+                        <CheckCircle size={20} /> Mark as Completed
+                    </Button>
+                ) : (
+                    <Button
+                        variant="outline"
+                        onClick={markChapterIncomplete}
+                        disabled={buttonLoading}
+                        className='flex gap-2 items-center'
+                    >
+                        <X size={20} /> Mark as Incomplete
+                    </Button>
+                )}
             </div>
 
-            <div className='mt-7'>
-                {topics.map((topic, index) => (
-                    // ✅ Padding and margins adjusted for responsiveness.
-                    <div key={index} className='mt-6 md:mt-10 p-4 sm:p-5 bg-secondary rounded-2xl'>
-                        {/* ✅ Responsive typography for topic titles. */}
-                        <h2 className='font-bold text-lg sm:text-xl md:text-2xl text-primary'>{topic?.topic}</h2>
-
-                        {/* This part remains the same as it's about content, not styling. */}
-                        <div dangerouslySetInnerHTML={{ __html: topic?.content }}
-                            style={{
-                                lineHeight: '2.5'
-                            }}>
+            {/* Related Videos */}
+            <h2 className='my-4 font-bold text-lg sm:text-xl'>Related Videos 🎬</h2>
+            {videoData.length === 0 ? (
+                <p className="text-gray-500">No videos available for this chapter.</p>
+            ) : (
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                    {videoData.slice(0, 2).map((video, index) => (
+                        <div key={index} className="rounded-lg overflow-hidden aspect-video w-full">
+                            <YouTube
+                                videoId={video?.videoId}
+                                opts={{ playerVars: { modestbranding: 1 } }}
+                                className='w-full h-full'
+                            />
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
+            )}
+
+            {/* Topics */}
+            <div className='mt-10 space-y-8'>
+                {topics.length === 0 ? (
+                    <p className="text-gray-500">No topics available for this chapter.</p>
+                ) : (
+                    topics.map((topic, index) => (
+                        <div key={index} className='p-5 bg-secondary rounded-2xl'>
+                            <h3 className='font-bold text-2xl text-primary mb-3'>
+                                {index + 1}. {topic?.topic}
+                            </h3>
+                            <div
+                                dangerouslySetInnerHTML={{ __html: topic?.content }}
+                                className='prose max-w-none text-gray-800 dark:text-gray-300 [&_pre]:bg-slate-800 [&_pre]:text-white [&_pre]:p-4 [&_pre]:rounded-md [&_pre]:overflow-x-auto'
+                            />
+                        </div>
+                    ))
+                )}
             </div>
         </div>
     );

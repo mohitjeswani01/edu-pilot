@@ -32,7 +32,7 @@ export default function Home() {
             {/* Left Column: Text Content & CTAs */}
             <div className="text-center md:text-left">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
-                Launch Your Online Course in <span className="text-blue-600">Minutes</span>
+                Launch Your Online Course in <span className="text-blue-600">Minutes 🚀</span>
               </h1>
               <p className="mt-6 text-lg md:text-xl text-gray-600">
                 Transform your expertise into engaging online courses with AI assistance. Create, publish, and monetize your knowledge effortlessly.
@@ -68,7 +68,7 @@ export default function Home() {
               </div>
             </div>
             {/* Right Column: Image */}
-            <div className="hidden md:block">
+            <div>
               <Image
                 src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=2070&auto=format&fit=crop"
                 alt="A professional creating an online course on a laptop"
@@ -260,7 +260,7 @@ export default function Home() {
         </section>
       </main>
 
-      {/* Footer - Updated Version */}
+      {/* Footer - Updated Version with Social Links */}
       <footer className="bg-gray-900 text-gray-400">
         <div className="container mx-auto px-6 py-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
@@ -315,9 +315,14 @@ export default function Home() {
             <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-sm">
               <p>&copy; {new Date().getFullYear()} Edu-Pilot. All rights reserved.</p>
               <div className="flex space-x-4 mt-4 md:mt-0">
-                <a href="#" className="hover:text-white transition-colors"><Twitter /></a>
-                <a href="#" className="hover:text-white transition-colors"><Instagram /></a>
-                <a href="#" className="hover:text-white transition-colors"><Linkedin /></a>
+                {/* Twitter Link */}
+                <a href="#" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors"><Twitter /></a>
+
+                {/* Instagram Link - Updated */}
+                <a href="https://www.instagram.com/mohit_jeswani1" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors"><Instagram /></a>
+
+                {/* LinkedIn Link - Update with your profile URL */}
+                <a href="https://www.linkedin.com/in/mohit-jeswani-a06838309" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors"><Linkedin /></a>
               </div>
             </div>
           </div>

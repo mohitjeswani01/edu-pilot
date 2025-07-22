@@ -8,40 +8,31 @@ import { currentUser } from "@clerk/nextjs/server";
 export async function GET(req) {
     const { searchParams } = new URL(req.url);
     const courseId = searchParams.get("courseId");
-    const user = await currentUser();
 
-    console.log("User:", user);
-
+    // This block for a special case remains the same
     if (courseId == 0) {
         const result = await db
             .select()
             .from(coursesTable)
             .where(sql`${coursesTable.courseContent} ::jsonb != '{}'::jsonb`);
-
-        console.log(result)
-
         return NextResponse.json(result[0] || {});
     }
 
+    // This block for fetching a single course by ID remains the same
     if (courseId) {
         const result = await db
             .select()
             .from(coursesTable)
             .where(eq(coursesTable.cid, courseId));
-
         return NextResponse.json(result[0] || {});
-    } else {
-        const email = user?.primaryEmailAddress?.emailAddress;
+    }
 
-        if (!email) {
-            return NextResponse.json({ error: "User email not found" }, { status: 400 });
-        }
-
+    // ✅ CORRECTED: This block now fetches ALL courses for the Explore page
+    else {
         const result = await db
             .select()
             .from(coursesTable)
-            .where(eq(coursesTable.userEmail, email.toLowerCase()))
-            .orderBy(desc(coursesTable.id))
+            .orderBy(desc(coursesTable.id)); // Orders by newest first
 
         return NextResponse.json(result);
     }

@@ -35,11 +35,6 @@ const SideBarOptions = [
         path: '/workspace/explore'
     },
     {
-        title: 'AI Tools',
-        icon: Sparkle,
-        path: '/workspace/ai-tools'
-    },
-    {
         title: 'Billing',
         icon: WalletCards,
         path: '/workspace/billing'

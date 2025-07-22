@@ -26,7 +26,7 @@ function CourseCard({ course }) {
             toast.success('Enrolled Successfully!')
             setLoading(false)
         } catch (e) {
-            toast.error('Server side error ')
+            toast.error('Server side error! ')
             setLoading(false)
         }
     }

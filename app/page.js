@@ -43,7 +43,7 @@ export default function Home() {
                     <Rocket size={20} /> Start Creating
                   </Button>
                 </Link>
-                <a href="#features">
+                <a href="/workspace/explore">
                   <Button size="lg" variant="outline" className="text-lg px-6 py-6 shadow-lg transform transition hover:scale-105 flex items-center gap-2">
                     <PlayCircle size={20} /> Explore Courses
                   </Button>

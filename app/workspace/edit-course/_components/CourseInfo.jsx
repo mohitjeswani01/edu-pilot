@@ -59,16 +59,24 @@ function CourseInfo({ course, viewCourse }) {
                         </section>
                     </div>
                 </div>
-                {!viewCourse ? <Button onClick={GenerateCourseContent} disabled={loading}>
-                    {loading ? (
-                        <span className="flex items-center gap-2">
-                            <Loader2 className="animate-spin h-5 w-5" />
-                            Generating Content
-                        </span>
-                    ) : (
-                        'Generate Content'
-                    )}
-                </Button> : <Link href={'/course/' + course?.cid}><Button><PlayCircle /> Continue Learning</Button></Link>}
+                {!viewCourse?.cid ? (
+                    <Button onClick={GenerateCourseContent} disabled={loading}>
+                        {loading ? (
+                            <span className="flex items-center gap-2">
+                                <Loader2 className="animate-spin h-5 w-5" />
+                                Generating Content
+                            </span>
+                        ) : (
+                            'Generate Content'
+                        )}
+                    </Button>
+                ) : (
+                    <Link href={`/course/${viewCourse.cid}`}>
+                        <Button>
+                            <PlayCircle /> Continue Learning
+                        </Button>
+                    </Link>
+                )}
             </div>
             <Image
                 src={course?.bannerImageUrl && course.bannerImageUrl.trim() !== ""

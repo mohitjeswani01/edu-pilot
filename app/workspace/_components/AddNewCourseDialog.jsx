@@ -57,18 +57,25 @@ function AddNewCourseDialog({ children }) {
                 courseId: courseId
             });
 
-            if (result.data.resp == 'limit exceeded!') {
-                toast.warning('Please Subscribe to paid plans! (Team Edu-Pilot🚀)')
-                router.push('workspace/billing')
+            if (result.data.resp === 'limit exceeded!') {
+                toast.warning('Please Subscribe to paid plans! (Team Edu-Pilot🚀)');
+                router.push('/workspace/billing');
+                return;
             }
-            setLoading(false);
-            router.push('/workspace/edit-course/' + result.data?.courseId);
-        } catch (error) {
-            setLoading(false);
-            console.log(error)
-        }
-    }
 
+            if (!result.data?.courseId) {
+                toast.error('Course could not be generated. Please try again.');
+                return;
+            }
+
+            router.push('/workspace/edit-course/' + result.data.courseId);
+        } catch (error) {
+            console.log(error);
+            toast.error('Something went wrong while generating the course.');
+        } finally {
+            setLoading(false);
+        }
+    };
     return (
         <Dialog>
             <DialogTrigger asChild>{children}</DialogTrigger>

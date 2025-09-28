@@ -2,8 +2,6 @@
 
 > An AI-powered modern learning platform with authentication, billing, and seamless AI integration.  
 
-![EduPilot Logo](logo.png) <!-- replace with your local logo file -->
-
 ---
 
 ## 🔰 Badges  
@@ -54,17 +52,19 @@ Users can specify a topic, the number of chapters, and other parameters, and Edu
 
 ### 🔹 Dashboard & Course Creation  
 
-![Dashboard](YOUR_IMAGE_LINK_1)  
+![Dashboard](images/dashboard_ss.png)   
 
-![Course Creation](YOUR_IMAGE_LINK_2)  
+### 🔹 My Learnings
+
+![Subscription](images/my-learning.png)  
 
 ### 🔹 Subscription Plans  
 
-![Subscription](YOUR_IMAGE_LINK_3)  
+![Subscription](images/biling.png)  
 
 ### 🔹 Explore Courses  
 
-![Explore Courses](YOUR_IMAGE_LINK_4)  
+![Explore Courses](images/explore-courses.png)  
 
 ---
 

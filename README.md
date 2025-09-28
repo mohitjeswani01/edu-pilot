@@ -12,6 +12,7 @@
 ![Clerk](https://img.shields.io/badge/Clerk-3B82F6?style=for-the-badge&logo=clerk&logoColor=white)  
 ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)  
 ![Google Gemini](https://img.shields.io/badge/Gemini_AI-4285F4?style=for-the-badge&logo=google&logoColor=white)  
+![YouTube API](https://img.shields.io/badge/YouTube%20API-Red?style=for-the-badge&logo=youtube&logoColor=white)
 
 ---
 

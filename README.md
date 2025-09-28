@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# **EduPilot** 🚀  
 
-## Getting Started
+> An AI-powered modern learning platform with authentication, billing, and seamless AI integration.  
 
-First, run the development server:
+![EduPilot Logo](logo.png) <!-- replace with your local logo file -->
+
+---
+
+## 🔰 Badges  
+
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)  
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)  
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)  
+![Clerk](https://img.shields.io/badge/Clerk-3B82F6?style=for-the-badge&logo=clerk&logoColor=white)  
+![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)  
+![Google Gemini](https://img.shields.io/badge/Gemini_AI-4285F4?style=for-the-badge&logo=google&logoColor=white)  
+
+---
+
+## 🌐 Live Demo  
+🔗 [edu-pilot.mohitcodes.xyz](https://edu-pilot.mohitcodes.xyz)  
+
+---
+
+## 📖 About  
+**Edu-Pilot** is a revolutionary web application designed to democratize education. In a world where knowledge is key, creating comprehensive course material can be a significant hurdle. Edu-Pilot tackles this challenge head-on by leveraging cutting-edge AI to generate entire courses from a simple prompt.
+
+Users can specify a topic, the number of chapters, and other parameters, and Edu-Pilot will instantly generate a structured course complete with detailed text and relevant, curated videos for an enhanced learning experience. Whether you're an educator looking to create content quickly or a student eager to learn a new skill, Edu-Pilot is your intelligent co-pilot on the journey of learning. 
+
+---
+
+## ✨ Features  
+- 🔐 **Authentication & Billing** powered by [Clerk](https://clerk.com)  
+- 🤖 **AI Integration** using [OpenAI](https://platform.openai.com) & [Gemini](https://ai.google.dev/) APIs  
+- 📚 **Course Management**: Create, manage, and explore courses easily  
+- 🎓 **Student & Instructor Dashboards** with personalized content  
+- 💳 **Secure Payments** for course subscriptions  
+- 📱 **Responsive UI** for desktop and mobile  
+- ⚡ **Modern Tech Stack** optimized for scalability and performance  
+
+---
+
+## 🛠️ Tech Stack  
+- **Frontend**: React + Tailwind CSS  
+- **Backend**: Node.js + Express  
+- **Database**: MongoDB  
+- **Authentication & Billing**: Clerk  
+- **AI APIs**: OpenAI, Gemini  
+- **Deployment**: AWS + Custom Domain  
+
+---
+
+## 📸 Screenshots  
+
+### 🔹 Dashboard & Course Creation  
+
+![Dashboard](YOUR_IMAGE_LINK_1)  
+
+![Course Creation](YOUR_IMAGE_LINK_2)  
+
+### 🔹 Subscription Plans  
+
+![Subscription](YOUR_IMAGE_LINK_3)  
+
+### 🔹 Explore Courses  
+
+![Explore Courses](YOUR_IMAGE_LINK_4)  
+
+---
+
+## 🚀 Getting Started  
+
+Follow these steps to run the project locally:  
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# 1. Clone the repository
+git clone https://github.com/mohitjeswani01/edu-pilot.git
 
-Open [localhost:3000](localhost:3000) with your browser to see the result.
+# 2. Navigate into the project
+cd edu-pilot
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# 3. Install dependencies
+npm install

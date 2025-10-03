@@ -2,8 +2,6 @@
 
 > An AI-powered modern learning platform with authentication, billing, and seamless AI integration.  
 
-![EduPilot Logo](logo.png) <!-- replace with your local logo file -->
-
 ---
 
 ## 🔰 Badges  
@@ -14,6 +12,7 @@
 ![Clerk](https://img.shields.io/badge/Clerk-3B82F6?style=for-the-badge&logo=clerk&logoColor=white)  
 ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)  
 ![Google Gemini](https://img.shields.io/badge/Gemini_AI-4285F4?style=for-the-badge&logo=google&logoColor=white)  
+![YouTube API](https://img.shields.io/badge/YouTube%20API-Red?style=for-the-badge&logo=youtube&logoColor=white)
 
 ---
 
@@ -54,17 +53,19 @@ Users can specify a topic, the number of chapters, and other parameters, and Edu
 
 ### 🔹 Dashboard & Course Creation  
 
-![Dashboard](YOUR_IMAGE_LINK_1)  
+![Dashboard](images/dashboard_ss.png)   
 
-![Course Creation](YOUR_IMAGE_LINK_2)  
+### 🔹 My Learnings
+
+![Subscription](images/my-learning.png)  
 
 ### 🔹 Subscription Plans  
 
-![Subscription](YOUR_IMAGE_LINK_3)  
+![Subscription](images/biling.png)  
 
 ### 🔹 Explore Courses  
 
-![Explore Courses](YOUR_IMAGE_LINK_4)  
+![Explore Courses](images/explore-courses.png)  
 
 ---
 

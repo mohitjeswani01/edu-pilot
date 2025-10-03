@@ -319,7 +319,7 @@ export default function Home() {
                 <a href="#" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors"><Twitter /></a>
 
                 {/* Instagram Link - Updated */}
-                <a href="https://www.instagram.com/mohit_jeswani1" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors"><Instagram /></a>
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors"><Instagram /></a>
 
                 {/* LinkedIn Link - Update with your profile URL */}
                 <a href="https://www.linkedin.com/in/mohit-jeswani-a06838309" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors"><Linkedin /></a>
